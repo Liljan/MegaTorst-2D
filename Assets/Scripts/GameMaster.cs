@@ -15,6 +15,8 @@ public class GameMaster : MonoBehaviour
     private int lives = 3;
     private int tokens = 0;
 
+    public float fallBoundary = -10;
+
     void Start()
     {
         if (!gm)
@@ -25,7 +27,6 @@ public class GameMaster : MonoBehaviour
             }
             catch (System.Exception)
             {
-                Debug.Log("Die snek");
                 throw;
             }
         }
@@ -37,8 +38,6 @@ public class GameMaster : MonoBehaviour
     {
         yield return new WaitForSeconds(spawnDelay);
         Instantiate(playerPrefab, spawnPoint.position, spawnPoint.rotation);
-        // Instantiate(spawnPrefab, spawnPoint.position, spawnPoint.rotation);
-        Debug.Log("Respawn'd");
     }
 
     public static void KillPlayer(Player p)
@@ -50,7 +49,7 @@ public class GameMaster : MonoBehaviour
     public void AddLife(int i) { lives += i; }
     public void RemoveLife(int i) { lives -= i; }
 
-    public void addToken(int i)
+    public void AddToken(int i)
     {
         tokens += i;
 
@@ -61,7 +60,12 @@ public class GameMaster : MonoBehaviour
         }
     }
 
-    public int getLives() { return lives; }
+    public int GetLives() { return lives; }
 
-    public int getTokens() { return tokens; }
+    public int GetTokens() { return tokens; }
+
+    public float GetFallBoundary()
+    {
+        return fallBoundary;
+    }
 }

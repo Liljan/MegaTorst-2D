@@ -4,7 +4,7 @@ using System.Collections;
 public class Player : MonoBehaviour
 {
     public float health = 100.0f;
-    public float fallBoundary = -20.0f;
+    private float fallBoundary = -10.0f;
 
     void Start()
     {
