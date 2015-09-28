@@ -3,7 +3,6 @@ using System.Collections;
 
 public class FallingPlatform : MonoBehaviour
 {
-
     private Rigidbody2D rb2d;
     public float fallDelay = 1.0f;
 
@@ -19,7 +18,6 @@ public class FallingPlatform : MonoBehaviour
 
             throw;
         }
-
     }
 
     void OnCollisionEnter2D(Collision2D c2d)
