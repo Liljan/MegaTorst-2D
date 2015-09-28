@@ -6,7 +6,7 @@
 	<ProductVersion>10.0.20506</ProductVersion>
 	<SchemaVersion>2.0</SchemaVersion>
 	<RootNamespace></RootNamespace>
-	<ProjectGuid>{37E1D58F-60ED-D1D4-415E-A573EF219B33}</ProjectGuid>
+	<ProjectGuid>{762C051F-3489-B1CE-48E3-8838D68C7953}</ProjectGuid>
 	<OutputType>Library</OutputType>
 	<AppDesignerFolder>Properties</AppDesignerFolder>
 	<AssemblyName>Assembly-CSharp</AssemblyName>
@@ -45,36 +45,27 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Temporary Assets\Scripts\2D Platformer\ArmRotation.cs" />
-     <Compile Include="Assets\Temporary Assets\Scripts\2D Platformer\Camera2DFollow.cs" />
-     <Compile Include="Assets\Temporary Assets\Scripts\2D Platformer\MoveTrail.cs" />
-     <Compile Include="Assets\Temporary Assets\Scripts\2D Platformer\Parallaxing.cs" />
-     <Compile Include="Assets\Temporary Assets\Scripts\2D Platformer\Tiling.cs" />
-     <Compile Include="Assets\Temporary Assets\Scripts\2D Platformer\Video08\Weapon.cs" />
-     <Compile Include="Assets\Temporary Assets\Scripts\2D Platformer\Video09\Weapon.cs" />
-     <Compile Include="Assets\Temporary Assets\Scripts\2D Platformer\Video10\Weapon.cs" />
-     <Compile Include="Assets\Temporary Assets\Scripts\2D Platformer\Video11\GameMaster.cs" />
-     <Compile Include="Assets\Temporary Assets\Scripts\2D Platformer\Video11\Player.cs" />
-     <Compile Include="Assets\Temporary Assets\Scripts\2D Platformer\Video12\GameMaster.cs" />
-     <Compile Include="Assets\Temporary Assets\Scripts\2D Platformer\Video13\GameMaster.cs" />
-     <Compile Include="Assets\Temporary Assets\Scripts\2D Platformer\Video14\EnemyAI.cs" />
-     <Compile Include="Assets\Temporary Assets\Scripts\2D Platformer\Video15\Enemy.cs" />
-     <Compile Include="Assets\Temporary Assets\Scripts\2D Platformer\Video18\CameraShake.cs" />
-     <Compile Include="Assets\Temporary Assets\Scripts\2D Platformer\Video18\GameMaster.cs" />
-     <Compile Include="Assets\Temporary Assets\Scripts\2D Platformer\Video18\Weapon.cs" />
-     <Compile Include="Assets\Temporary Assets\Scripts\2D Platformer\Video19\Enemy.cs" />
-     <Compile Include="Assets\Temporary Assets\Scripts\2D Platformer\Video19\StatusIndicator.cs" />
-     <Compile Include="Assets\Temporary Assets\Scripts\2D Platformer\Video20\Enemy.cs" />
-     <Compile Include="Assets\Temporary Assets\Scripts\2D Platformer\Video20\GameMaster.cs" />
-     <Compile Include="Assets\Temporary Assets\Scripts\2D Platformer\Video20\Player.cs" />
-     <Compile Include="Assets\Temporary Assets\Scripts\Fading.cs" />
-     <Compile Include="Assets\Temporary Assets\Scripts\WaveSpawner.cs" />
+     <Compile Include="Assets\Scripts\Bullet.cs" />
+     <Compile Include="Assets\Scripts\FallingPlatform.cs" />
+     <Compile Include="Assets\Scripts\GameMaster.cs" />
+     <Compile Include="Assets\Scripts\Parallaxing.cs" />
+     <Compile Include="Assets\Scripts\Player.cs" />
+     <Compile Include="Assets\Scripts\PlayerBullet.cs" />
+     <Compile Include="Assets\Scripts\Tiling.cs" />
+     <Compile Include="Assets\Scripts\TrigonometryCycle.cs" />
+     <Compile Include="Assets\Scripts\Weapon.cs" />
      <None Include="Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />
+ <Reference Include="UnityEngine.Advertisements">
+ <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Advertisements/UnityEngine.Advertisements.dll</HintPath>
+ </Reference>
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Networking">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.Analytics">
+ <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>
  </Reference>
  <Reference Include="Mono.Cecil">
  <HintPath>C:/Program Files/Unity/Editor/Data/Managed/Mono.Cecil.dll</HintPath>
@@ -85,7 +76,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
-      <Project>{BBC428F8-38E7-6B73-37BC-53702E18B13D}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
+      <Project>{B014A1DD-6ACF-7C38-FAB4-26CE2439C794}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

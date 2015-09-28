@@ -51,13 +51,10 @@ public class Weapon : MonoBehaviour
 
     private void Shoot()
     {
-        //  Vector2 firePointPosition = new Vector2(firePoint.position.x, firePoint.position.y);
-
         if (Time.time >= timeToSpawnEffect)
         {
             SpawnBullet();
-            timeToSpawnEffect = Time.time + 1 / effectSpawnRate;
-        }
+	}
     }
 
     private void SpawnBullet()
