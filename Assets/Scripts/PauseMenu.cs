@@ -1,19 +1,28 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
-public class PauseMenu : MonoBehaviour {
+public class PauseMenu : MonoBehaviour
+{
 
     public GameObject pauseUI;
+    public GameObject defaultButton;
 
     private bool isPaused = false;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start()
+    {
         pauseUI.SetActive(false);
+        EventSystem.current.SetSelectedGameObject(defaultButton);
+        
+
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update()
+    {
 
         if (Input.GetButtonDown("Pause"))
         {
@@ -31,4 +40,14 @@ public class PauseMenu : MonoBehaviour {
             Time.timeScale = 1.0f;
         }
     }
+
+    public void Resume() { isPaused = false; }
+
+    public void Restart()
+    {
+        Application.LoadLevel(Application.loadedLevel);
+    }
+
+    public void MainMenu() { Debug.Log("Not yet Snake!"); }
+    public void Quit() { Application.Quit(); }
 }
