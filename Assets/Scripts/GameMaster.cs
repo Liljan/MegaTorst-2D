@@ -59,7 +59,12 @@ public class GameMaster : MonoBehaviour
         gm.StartCoroutine(gm.respawnPlayer());
     }
 
-    public void AddLife(int i) { lives += i; }
+    public void AddLife(int i)
+    {
+        lives += i;
+      //  AudioClip ac = livesText.GetComponent<AudioClip>();
+       // AudioSource.PlayClipAtPoint(ac, transform.position);
+    }
     public void RemoveLife(int i) { lives -= i; }
 
     public void AddToken(int i)
