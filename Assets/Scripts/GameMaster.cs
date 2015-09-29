@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class GameMaster : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class GameMaster : MonoBehaviour
     public float spawnDelay = 1.0f;
     public Transform spawnPrefab;
 
+    // UI
+    public Text tokenText;
 
     // Level data
     private int lives = 3;
@@ -32,7 +35,10 @@ public class GameMaster : MonoBehaviour
         }
     }
 
-    void Update() { }
+    void Update()
+    {
+        //tokenText.text = "Beer: " + tokens;
+    }
 
     IEnumerator respawnPlayer()
     {
