@@ -6,10 +6,7 @@ public class Player : MonoBehaviour
     public float health = 100.0f;
     private float fallBoundary = -10.0f;
 
-    void Start()
-    {
-
-    }
+    void Start() { }
 
     void Update()
     {

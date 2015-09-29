@@ -9,19 +9,22 @@ public class GameMaster : MonoBehaviour
     public Transform spawnPoint;
 
     public float spawnDelay = 1.0f;
-    public Transform spawnPrefab;
 
     // UI
+    public Text livesText;
     public Text tokenText;
+    public Text timerText;
 
     // Level data
     private int lives = 3;
     private int tokens = 0;
+    private float elapsedTime = 0;
 
     public float fallBoundary = -10;
 
     void Start()
     {
+
         if (!gm)
         {
             try
@@ -37,7 +40,11 @@ public class GameMaster : MonoBehaviour
 
     void Update()
     {
-        //tokenText.text = "Beer: " + tokens;
+        UpdateTime();
+        timerText.text = FormatTimeString(elapsedTime);
+
+        livesText.text = lives.ToString();
+        tokenText.text = tokens.ToString();
     }
 
     IEnumerator respawnPlayer()
@@ -59,10 +66,10 @@ public class GameMaster : MonoBehaviour
     {
         tokens += i;
 
-        if (tokens % 24 == 0)
+        if (tokens >= 24)
         {
-            tokens = 0;
-            lives++;
+            tokens = tokens % 24;
+            AddLife(1);
         }
     }
 
@@ -73,5 +80,20 @@ public class GameMaster : MonoBehaviour
     public float GetFallBoundary()
     {
         return fallBoundary;
+    }
+
+    private void UpdateTime()
+    {
+        elapsedTime += Time.deltaTime;
+    }
+
+    private string FormatTimeString(float e)
+    {
+        int d = (int)(elapsedTime * 100.0f);
+        int minutes = d / (60 * 100);
+        int seconds = (d % (60 * 100)) / 100;
+        int hundredths = d % 100;
+
+        return string.Format("{0:00}:{1:00}.{2:00}", minutes, seconds, hundredths);
     }
 }
