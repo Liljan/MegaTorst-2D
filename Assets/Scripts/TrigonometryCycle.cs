@@ -24,15 +24,15 @@ public class TrigonometryCycle : MonoBehaviour
 
         if (moveX && moveY)
         {
-            transform.position = new Vector3(amplitude.x * Mathf.Cos(frequenzy * phase), amplitude.y * Mathf.Sin(frequenzy * phase), transform.position.z);
+            transform.localPosition = new Vector3(amplitude.x * Mathf.Cos(frequenzy * phase), amplitude.y * Mathf.Sin(frequenzy * phase), transform.localPosition.z);
         }
         else if (moveX)
         {
-            transform.position = new Vector3(amplitude.x * Mathf.Cos(frequenzy * phase), transform.position.y, transform.position.z);
+            transform.localPosition = new Vector3(amplitude.x * Mathf.Cos(frequenzy * phase), transform.localPosition.y, transform.localPosition.z);
         }
         else if (moveY)
         {
-            transform.position = new Vector3(transform.position.x, amplitude.y * Mathf.Sin(frequenzy * phase), transform.position.z);
+            transform.localPosition = new Vector3(transform.localPosition.x, amplitude.y * Mathf.Sin(frequenzy * phase), transform.localPosition.z);
         }
     }
 }

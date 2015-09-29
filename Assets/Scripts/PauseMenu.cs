@@ -16,8 +16,6 @@ public class PauseMenu : MonoBehaviour
     {
         pauseUI.SetActive(false);
         EventSystem.current.SetSelectedGameObject(defaultButton);
-        
-
     }
 
     // Update is called once per frame
