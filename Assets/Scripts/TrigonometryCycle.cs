@@ -10,12 +10,14 @@ public class TrigonometryCycle : MonoBehaviour
     public Vector2 amplitude;
 
     private float phase = 0.0f;
-
     private float frequenzy;
+    private Vector3 startPosition;
+
 
     void Start()
     {
         frequenzy = 2 * Mathf.PI / period;
+        startPosition = transform.position;
     }
 
     void Update()
@@ -24,15 +26,24 @@ public class TrigonometryCycle : MonoBehaviour
 
         if (moveX && moveY)
         {
-            transform.position = new Vector3(amplitude.x * Mathf.Cos(frequenzy * phase), amplitude.y * Mathf.Sin(frequenzy * phase), transform.position.z);
+            transform.position = new Vector3(
+                startPosition.x + amplitude.x * Mathf.Cos(frequenzy * phase),
+                startPosition.y + amplitude.y * Mathf.Sin(frequenzy * phase),
+                transform.position.z);
         }
         else if (moveX)
         {
-            transform.position = new Vector3(amplitude.x * Mathf.Cos(frequenzy * phase), transform.position.y, transform.position.z);
+            transform.position = new Vector3(
+                startPosition.x + amplitude.x * Mathf.Cos(frequenzy * phase),
+                transform.position.y,
+                transform.position.z);
         }
         else if (moveY)
         {
-            transform.position = new Vector3(transform.position.x, amplitude.y * Mathf.Sin(frequenzy * phase), transform.position.z);
+            transform.position = new Vector3(
+                transform.position.x,
+                startPosition.y + amplitude.y * Mathf.Sin(frequenzy * phase),
+                transform.position.z);
         }
     }
 }

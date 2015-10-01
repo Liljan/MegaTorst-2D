@@ -4,9 +4,13 @@ using System.Collections;
 public class Player : MonoBehaviour
 {
     public float health = 100.0f;
+    private GameMaster gm;
     private float fallBoundary = -10.0f;
 
-    void Start() { }
+    void Start()
+    {
+        gm = GameObject.FindGameObjectWithTag("GM").GetComponent<GameMaster>();
+    }
 
     void Update()
     {
@@ -20,7 +24,7 @@ public class Player : MonoBehaviour
         health -= d;
         if (health <= 0)
         {
-            GameMaster.KillPlayer(this);
+            gm.KillPlayer(this);
         }
     }
 

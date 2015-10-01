@@ -30,6 +30,7 @@ public class GameMaster : MonoBehaviour
             try
             {
                 gm = GameObject.FindGameObjectWithTag("GM").GetComponent<GameMaster>();
+               // Instantiate(playerPrefab, spawnPoint.position, spawnPoint.rotation);
             }
             catch (System.Exception)
             {
@@ -53,8 +54,9 @@ public class GameMaster : MonoBehaviour
         Instantiate(playerPrefab, spawnPoint.position, spawnPoint.rotation);
     }
 
-    public static void KillPlayer(Player p)
+    public void KillPlayer(Player p)
     {
+        RemoveLife(1);
         Destroy(p.gameObject);
         gm.StartCoroutine(gm.respawnPlayer());
     }
@@ -65,6 +67,7 @@ public class GameMaster : MonoBehaviour
       //  AudioClip ac = livesText.GetComponent<AudioClip>();
        // AudioSource.PlayClipAtPoint(ac, transform.position);
     }
+
     public void RemoveLife(int i) { lives -= i; }
 
     public void AddToken(int i)
