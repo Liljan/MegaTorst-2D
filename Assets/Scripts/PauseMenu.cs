@@ -5,7 +5,6 @@ using UnityEngine.EventSystems;
 
 public class PauseMenu : MonoBehaviour
 {
-
     public GameObject pauseUI;
     public GameObject defaultButton;
 

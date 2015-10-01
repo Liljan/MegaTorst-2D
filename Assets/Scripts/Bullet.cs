@@ -37,6 +37,13 @@ public class Bullet : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
-         
+    }
+
+    void OnCollisionEnter2D(Collision2D col)
+    {
+        if (col.transform.tag == "Solid")
+        {
+            Destroy(this.gameObject);
+        }
     }
 }

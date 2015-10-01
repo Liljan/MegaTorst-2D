@@ -10,7 +10,6 @@ public class PickupToken : MonoBehaviour
 
     private AudioSource audio;
 
-
     // Use this for initialization
     void Start()
     {
