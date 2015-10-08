@@ -8,7 +8,7 @@ public class GameMaster : MonoBehaviour
     public Transform playerPrefab;
     public Transform spawnPoint;
 
-    public float spawnDelay = 1.0f;
+    public float reSpawnDelay = 1.0f;
 
     // UI
     public Text livesText;
@@ -24,7 +24,6 @@ public class GameMaster : MonoBehaviour
 
     void Start()
     {
-
         if (!gm)
         {
             try
@@ -50,7 +49,7 @@ public class GameMaster : MonoBehaviour
 
     IEnumerator respawnPlayer()
     {
-        yield return new WaitForSeconds(spawnDelay);
+        yield return new WaitForSeconds(reSpawnDelay);
         Instantiate(playerPrefab, spawnPoint.position, spawnPoint.rotation);
     }
 

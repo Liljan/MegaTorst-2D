@@ -13,7 +13,6 @@ public class TrigonometryCycle : MonoBehaviour
     private float frequenzy;
     private Vector3 startPosition;
 
-
     void Start()
     {
         frequenzy = 2 * Mathf.PI / period;

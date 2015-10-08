@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 9c9f957719ca24e42862627f01966f5b
-timeCreated: 1443348659
+timeCreated: 1443780840
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -74,10 +74,10 @@ TextureImporter:
         x: 0
         y: 236
         width: 512
-        height: 94
+        height: 92
       alignment: 0
       pivot: {x: .5, y: .5}
-      border: {x: 0, y: 0, z: 0, w: 5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Foreground_Dirt
       rect:
         serializedVersion: 2

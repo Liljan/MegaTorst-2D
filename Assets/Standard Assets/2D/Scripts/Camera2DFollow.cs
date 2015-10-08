@@ -2,10 +2,8 @@ using UnityEngine;
 
 namespace UnitySampleAssets._2D
 {
-
     public class Camera2DFollow : MonoBehaviour
     {
-
         public Transform target;
         public float damping = 1;
         public float lookAheadFactor = 3;
@@ -14,6 +12,8 @@ namespace UnitySampleAssets._2D
 
         public float yMin = -1;
         public float yMax = Mathf.Infinity;
+
+        public Vector2 offset;
 
         private float offsetZ;
         private Vector3 lastTargetPosition;
@@ -28,6 +28,8 @@ namespace UnitySampleAssets._2D
             lastTargetPosition = target.position;
             offsetZ = (transform.position - target.position).z;
             transform.parent = null;
+
+            findPlayer();
         }
 
         // Update is called once per frame
@@ -74,9 +76,6 @@ namespace UnitySampleAssets._2D
                     nextTimeToSearch = Time.time + 0.5f;
                 }
             }
-
         }
-
     }
-
 }
