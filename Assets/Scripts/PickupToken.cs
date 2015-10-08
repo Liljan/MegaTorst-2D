@@ -6,14 +6,11 @@ public class PickupToken : MonoBehaviour
     public int value = 1;
     private GameMaster gm;
 
-    private Rigidbody2D rb2d;
-
     private AudioSource audio;
 
     // Use this for initialization
     void Start()
     {
-        rb2d = GetComponent<Rigidbody2D>();
         gm = GameObject.FindGameObjectWithTag("GM").GetComponent<GameMaster>();
         audio = GetComponent<AudioSource>();
     }
@@ -25,7 +22,6 @@ public class PickupToken : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col)
     {
-
         if (col.CompareTag("Player"))
         {
             gm.AddToken(value);
