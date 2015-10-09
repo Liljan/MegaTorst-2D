@@ -12,10 +12,10 @@ public class MovingPlatform : MonoBehaviour
         try
         {
             rb2d = GetComponent<Rigidbody2D>();
+            rb2d.constraints = RigidbodyConstraints2D.FreezeAll;
         }
         catch (System.Exception)
         {
-
             throw;
         }
     }
@@ -24,8 +24,7 @@ public class MovingPlatform : MonoBehaviour
     {
         if (c2d.collider.CompareTag("Player"))
         {
-            Debug.Log("Hello!");
-            c2d.transform.parent = this.transform;
+            MakeChild(c2d.gameObject);
         }
     }
 
@@ -34,7 +33,20 @@ public class MovingPlatform : MonoBehaviour
 
         if (c2d.collider.CompareTag("Player"))
         {
-            c2d.transform.parent = null;
+            ReleaseChild(c2d.gameObject);
         }
+    }
+
+    private void MakeChild(GameObject g)
+    {
+        Debug.Log("Made child");
+        rb2d.isKinematic = true;
+        g.transform.parent = this.gameObject.transform;
+    }
+
+    private void ReleaseChild(GameObject g)
+    {
+        rb2d.isKinematic = false;
+        g.transform.parent = null;
     }
 }
