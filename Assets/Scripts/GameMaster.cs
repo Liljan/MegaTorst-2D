@@ -13,7 +13,7 @@ public class GameMaster : MonoBehaviour
     // UI
     public Text livesText;
     public Text tokenText;
-    public Text timerText;
+    public Text timerText; 
 
     // Level data
     private int lives = 3;

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class MenuRotator : MonoBehaviour {
+public class MenuRot : MonoBehaviour {
 
     public float speed = 10.0f;
 
