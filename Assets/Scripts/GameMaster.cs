@@ -13,7 +13,7 @@ public class GameMaster : MonoBehaviour
     // UI
     public Text livesText;
     public Text tokenText;
-    public Text timerText; 
+    public Text timerText;
 
     // Level data
     private int lives = 3;
@@ -22,6 +22,10 @@ public class GameMaster : MonoBehaviour
 
     public float fallBoundary = -10;
 
+
+    // Bad hax.
+    private ChangeScene cs;
+
     void Start()
     {
         if (!gm)
@@ -29,13 +33,15 @@ public class GameMaster : MonoBehaviour
             try
             {
                 gm = GameObject.FindGameObjectWithTag("GM").GetComponent<GameMaster>();
-               // Instantiate(playerPrefab, spawnPoint.position, spawnPoint.rotation);
+                // Instantiate(playerPrefab, spawnPoint.position, spawnPoint.rotation);
             }
             catch (System.Exception)
             {
                 throw;
             }
         }
+
+        cs = new ChangeScene();
     }
 
     void Update()
@@ -63,11 +69,15 @@ public class GameMaster : MonoBehaviour
     public void AddLife(int i)
     {
         lives += i;
-      //  AudioClip ac = livesText.GetComponent<AudioClip>();
-       // AudioSource.PlayClipAtPoint(ac, transform.position);
+        //  AudioClip ac = livesText.GetComponent<AudioClip>();
+        // AudioSource.PlayClipAtPoint(ac, transform.position);
     }
 
-    public void RemoveLife(int i) { lives -= i; }
+    public void RemoveLife(int i)
+    {
+        lives -= i;
+        if (lives < 0) { cs.SetScene("Game Over"); }
+    }
 
     public void AddToken(int i)
     {

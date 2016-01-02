@@ -7,6 +7,7 @@ public class PauseMenu : MonoBehaviour
 {
     public GameObject pauseUI;
     public GameObject defaultButton;
+    public string mainMenu;
 
     private bool isPaused = false;
 
@@ -20,7 +21,6 @@ public class PauseMenu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         if (Input.GetButtonDown("Pause"))
         {
             isPaused = !isPaused;
@@ -28,11 +28,13 @@ public class PauseMenu : MonoBehaviour
 
         if (isPaused)
         {
+            MainGameManager.isPaused = true;
             pauseUI.SetActive(true);
             Time.timeScale = 0.0f;
         }
         else if (!isPaused)
         {
+            MainGameManager.isPaused = false;
             pauseUI.SetActive(false);
             Time.timeScale = 1.0f;
         }
@@ -45,6 +47,15 @@ public class PauseMenu : MonoBehaviour
         Application.LoadLevel(Application.loadedLevel);
     }
 
-    public void MainMenu() { Debug.Log("Not yet Snake!"); }
+    public void MainMenu() {
+        try
+        {
+            Application.LoadLevel(mainMenu);
+        }
+        catch (System.Exception)
+        {
+            throw;
+        }
+    }
     public void Quit() { Application.Quit(); }
 }

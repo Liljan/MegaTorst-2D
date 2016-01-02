@@ -35,7 +35,7 @@ public class Weapon : MonoBehaviour
 
         // if the primary fire button is pressed
 
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButtonDown("Fire2") && MainGameManager.isPaused == false)
         {
             if (fireRate == 0)
             {
