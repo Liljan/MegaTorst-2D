@@ -8,6 +8,7 @@ public class PauseMenu : MonoBehaviour
     public GameObject pauseUI;
     public GameObject defaultButton;
     public string mainMenu;
+    public AudioSource pauseMusic;
 
     private bool isPaused = false;
 
@@ -16,6 +17,8 @@ public class PauseMenu : MonoBehaviour
     {
         pauseUI.SetActive(false);
         EventSystem.current.SetSelectedGameObject(defaultButton);
+
+        pauseMusic.loop = true;
     }
 
     // Update is called once per frame
@@ -23,6 +26,16 @@ public class PauseMenu : MonoBehaviour
     {
         if (Input.GetButtonDown("Pause"))
         {
+            if (!isPaused)
+            {
+                // play shitty music
+                pauseMusic.PlayOneShot(pauseMusic.clip, MainGameManager.master_volume * MainGameManager.music_volume);
+            }
+            else
+            {
+                pauseMusic.Stop();
+            }
+
             isPaused = !isPaused;
         }
 
@@ -47,7 +60,8 @@ public class PauseMenu : MonoBehaviour
         Application.LoadLevel(Application.loadedLevel);
     }
 
-    public void MainMenu() {
+    public void MainMenu()
+    {
         try
         {
             Application.LoadLevel(mainMenu);
