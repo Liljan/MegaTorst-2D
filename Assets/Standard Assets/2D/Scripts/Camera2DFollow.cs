@@ -29,7 +29,7 @@ namespace UnitySampleAssets._2D
             offsetZ = (transform.position - target.position).z;
             transform.parent = null;
 
-            findPlayer();
+            FindPlayer();
         }
 
         // Update is called once per frame
@@ -37,7 +37,7 @@ namespace UnitySampleAssets._2D
         {
             if (!target)
             {
-                findPlayer();
+                FindPlayer();
                 return;
             }
 
@@ -64,12 +64,12 @@ namespace UnitySampleAssets._2D
             lastTargetPosition = target.position;
         }
 
-        private void findPlayer()
+        private void FindPlayer()
         {
             if (nextTimeToSearch <= Time.time)
             {
                 // reference to player
-                GameObject searchResult = GameObject.FindGameObjectWithTag("Player");
+                GameObject searchResult = GameObject.FindGameObjectWithTag("CameraLookAt");
                 if (searchResult)
                 {
                     target = searchResult.transform;

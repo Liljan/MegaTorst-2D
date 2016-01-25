@@ -6,7 +6,6 @@ public class GameMaster : MonoBehaviour
 {
     public static GameMaster gm;
     public Transform playerPrefab;
-    public Transform spawnPoint;
 
     public float reSpawnDelay = 1.0f;
 
@@ -20,8 +19,10 @@ public class GameMaster : MonoBehaviour
     private int tokens = 0;
     private float elapsedTime = 0;
 
+    // Platforming variables
     public float fallBoundary = -10;
-
+    public Transform[] spawnPoints;
+    private int currentSpawnPoint = 0;
 
     // Bad hax.
     private ChangeScene cs;
@@ -33,7 +34,6 @@ public class GameMaster : MonoBehaviour
             try
             {
                 gm = GameObject.FindGameObjectWithTag("GM").GetComponent<GameMaster>();
-                // Instantiate(playerPrefab, spawnPoint.position, spawnPoint.rotation);
             }
             catch (System.Exception)
             {
@@ -56,7 +56,7 @@ public class GameMaster : MonoBehaviour
     IEnumerator respawnPlayer()
     {
         yield return new WaitForSeconds(reSpawnDelay);
-        Instantiate(playerPrefab, spawnPoint.position, spawnPoint.rotation);
+        Instantiate(playerPrefab, spawnPoints[currentSpawnPoint].position, spawnPoints[currentSpawnPoint].rotation);
     }
 
     public void KillPlayer(Player p)
@@ -69,8 +69,6 @@ public class GameMaster : MonoBehaviour
     public void AddLife(int i)
     {
         lives += i;
-        //  AudioClip ac = livesText.GetComponent<AudioClip>();
-        // AudioSource.PlayClipAtPoint(ac, transform.position);
     }
 
     public void RemoveLife(int i)
@@ -112,5 +110,10 @@ public class GameMaster : MonoBehaviour
         int hundredths = d % 100;
 
         return string.Format("{0:00}:{1:00}.{2:00}", minutes, seconds, hundredths);
+    }
+
+    public void SetSpawnPoint(int index)
+    {
+        currentSpawnPoint = index;
     }
 }
