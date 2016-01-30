@@ -14,7 +14,6 @@ public class PlatformerCamera : MonoBehaviour
 
     private Transform player;        // Reference to the player's transform.
 
-
     bool CheckXMargin()
     {
         // Returns true if the distance between the camera and the player in the x axis is greater than the x margin.

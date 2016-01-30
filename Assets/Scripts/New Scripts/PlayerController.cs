@@ -16,6 +16,11 @@ public class PlayerController : MonoBehaviour
 
     private Animator anim;
 
+    private float moveVelocity = 0f;
+
+    public Transform firePoint;
+    public GameObject shot;
+
     // Use this for initialization
     void Start()
     {
@@ -34,24 +39,36 @@ public class PlayerController : MonoBehaviour
         if (grounded)
             doubleJumped = false;
 
-        if (Input.GetKeyDown(KeyCode.Space) && grounded)
+        if (Input.GetKeyDown(KeyCode.W) && grounded)
         {
             Jump();
         }
-        else if (Input.GetKeyDown(KeyCode.Space) && !doubleJumped && !grounded)
+        else if (Input.GetKeyDown(KeyCode.W) && !doubleJumped && !grounded)
         {
             Jump();
             doubleJumped = true;
         }
 
+        moveVelocity = 0f;
+
         if (Input.GetKey(KeyCode.D))
         {
-            rb2d.velocity = new Vector2(moveSpeed, rb2d.velocity.y);
+            // rb2d.velocity = new Vector2(moveSpeed, rb2d.velocity.y);
+            moveVelocity = moveSpeed;
         }
 
         if (Input.GetKey(KeyCode.A))
         {
-            rb2d.velocity = new Vector2(-moveSpeed, rb2d.velocity.y);
+           // rb2d.velocity = new Vector2(-moveSpeed, rb2d.velocity.y);
+            moveVelocity = -moveSpeed;
+        }
+
+        rb2d.velocity = new Vector2(moveVelocity, rb2d.velocity.y);
+
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            // fire
+            Instantiate(shot, firePoint.transform.position, firePoint.transform.rotation);
         }
 
         // Animation
