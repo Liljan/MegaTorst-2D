@@ -5,22 +5,40 @@ public class LevelManager : MonoBehaviour
 {
     public GameObject currentCheckpoint;
     private PlayerController player;
+    public PlatformerCamera cam;
+
+    public GameObject deathParticle;
+    public GameObject spawnParticle;
+    public GameObject playerPrefab;
+
+    public float respawnDelay;
 
     // Use this for initialization
     void Start()
     {
-        player = FindObjectOfType<PlayerController>();
+        RespawnPlayer();
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        
     }
+
+    public void KillPlayer()
+    {
+        Instantiate(deathParticle, player.transform.position, player.transform.rotation);
+        Destroy(player.gameObject);
+        RespawnPlayer();
+    }
+
 
     public void RespawnPlayer()
     {
-        Debug.Log("Player respawn");
-        player.transform.position = currentCheckpoint.transform.position;
+        Instantiate(playerPrefab, currentCheckpoint.transform.position, currentCheckpoint.transform.rotation);
+        player = FindObjectOfType<PlayerController>();
+        cam.FindPlayer();
+       // Instantiate(spawnParticle, player.transform.position, player.transform.rotation);
     }
+
 }

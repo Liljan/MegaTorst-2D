@@ -14,10 +14,13 @@ public class PlayerController : MonoBehaviour
     private bool grounded = false;
     private bool doubleJumped = false;
 
+    private Animator anim;
+
     // Use this for initialization
     void Start()
     {
-        rb2d = gameObject.GetComponent<Rigidbody2D>();
+        rb2d = this.gameObject.GetComponent<Rigidbody2D>();
+        anim = this.gameObject.GetComponent<Animator>();
     }
 
     void FixedUpdate()
@@ -51,6 +54,18 @@ public class PlayerController : MonoBehaviour
             rb2d.velocity = new Vector2(-moveSpeed, rb2d.velocity.y);
         }
 
+        // Animation
+        anim.SetFloat("Speed", Mathf.Abs(rb2d.velocity.x));
+        if (rb2d.velocity.x > 0)
+        { //moving right
+            transform.localScale = new Vector3(1f, 1f, 1f);
+        }
+        else if (rb2d.velocity.x < 0)
+        {
+            // move left
+            transform.localScale = new Vector3(-1f, 1f, 1f);
+        }
+        anim.SetBool("Grounded", grounded);
     }
 
     public void Jump()

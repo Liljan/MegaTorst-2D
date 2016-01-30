@@ -17,11 +17,11 @@ public class KillPlayer : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("saa");
+        // Fox...
         if (other.tag == "Player")
         {
-            Debug.Log("HELELE");
-            levelManager.RespawnPlayer();
+            // Die!
+            levelManager.KillPlayer();
         }
     }
 }
