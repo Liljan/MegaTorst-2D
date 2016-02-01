@@ -15,8 +15,6 @@ public class EnemyPatrol : MonoBehaviour
     private bool atEdge;
     public Transform edgeCheck;
 
-    public GameObject deathParticles;
-
     // Use this for initialization
     void Start()
     {
@@ -43,19 +41,4 @@ public class EnemyPatrol : MonoBehaviour
         }
     }
 
-    public void OnTriggerEnter(Collider2D other)
-    {
-        if(other.tag == "Bullet")
-        {
-            Debug.Log("shot by a gangsta");
-            StartCoroutine(Kill(1f));
-        }
-    }
-
-    public IEnumerator Kill(float time)
-    {
-        yield return new WaitForSeconds(time);
-        Instantiate(deathParticles, this.transform.position, this.transform.rotation);
-        Destroy(this.gameObject);
-    }
 }

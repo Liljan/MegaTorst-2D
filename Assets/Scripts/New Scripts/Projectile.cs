@@ -1,15 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Projectile : MonoBehaviour {
-
+public class Projectile : MonoBehaviour
+{
     public float speed;
 
     private PlayerController player;
     private Rigidbody2D rb2d;
 
-	// Use this for initialization
-	void Start () {
+    public int damage = 1;
+
+    // Use this for initialization
+    void Start()
+    {
         player = FindObjectOfType<PlayerController>();
         rb2d = FindObjectOfType<Rigidbody2D>();
 
@@ -20,20 +23,25 @@ public class Projectile : MonoBehaviour {
             this.transform.localScale = new Vector3(-1f, 1f, 1f);
             speed = -speed;
         }
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
         if (!rb2d)
         {
             Destroy(this.gameObject);
         }
         rb2d.velocity = new Vector2(speed, 0f);
-	}
+    }
 
     void OnTriggerEnter2D(Collider2D other)
     {
-            // do cool stuff later
+        if (other.tag == "Enemy")
+        {
+            Debug.Log("Jimmey!");
+            other.GetComponent<EnemyHealthManager>().TakeDamage(damage);
+        }
         Destroy(this.gameObject);
     }
 }

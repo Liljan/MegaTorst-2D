@@ -13,10 +13,14 @@ public class LevelManager : MonoBehaviour
 
     public float respawnDelay;
 
+    private HealthManager healthManager;
+
     // Use this for initialization
     void Start()
     {
+        healthManager = FindObjectOfType<HealthManager>();
         RespawnPlayer();
+        
     }
 
     // Update is called once per frame
@@ -38,7 +42,9 @@ public class LevelManager : MonoBehaviour
         Instantiate(playerPrefab, currentCheckpoint.transform.position, currentCheckpoint.transform.rotation);
         player = FindObjectOfType<PlayerController>();
         cam.FindPlayer();
-       // Instantiate(spawnParticle, player.transform.position, player.transform.rotation);
+        Instantiate(spawnParticle, player.transform.position, player.transform.rotation);
+
+        healthManager.SetFullHealth();
     }
 
 }

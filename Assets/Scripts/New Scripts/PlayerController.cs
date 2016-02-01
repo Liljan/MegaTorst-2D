@@ -20,12 +20,32 @@ public class PlayerController : MonoBehaviour
 
     public Transform firePoint;
     public GameObject shot;
+    public float shootDelay = 2f;
+    private float shootDelayCounter = 0f;
+
+    // knockback
+
+    public float knockBackForce;
+    public float knockbackLength;
+    public float knockBackTime;
+    public bool knockFromRight;
+
+    // melee attack
+    private bool attacking = false;
+    public float attackDelay = 100f;
+    private float attackTimer = 0f;
+
+    // sound effects
+    private AudioSource audioSource;
+    public AudioClip SFX_JUMP;
+    public AudioClip SFX_DOUBLE_JUMP;
 
     // Use this for initialization
     void Start()
     {
         rb2d = this.gameObject.GetComponent<Rigidbody2D>();
         anim = this.gameObject.GetComponent<Animator>();
+        audioSource = this.gameObject.GetComponent<AudioSource>();
     }
 
     void FixedUpdate()
@@ -39,14 +59,18 @@ public class PlayerController : MonoBehaviour
         if (grounded)
             doubleJumped = false;
 
-        if (Input.GetKeyDown(KeyCode.W) && grounded)
+        // Check input
+
+        if ((Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.Space) ) && grounded)
         {
             Jump();
+            audioSource.PlayOneShot(SFX_JUMP);
         }
         else if (Input.GetKeyDown(KeyCode.W) && !doubleJumped && !grounded)
         {
             Jump();
             doubleJumped = true;
+            audioSource.PlayOneShot(SFX_DOUBLE_JUMP);
         }
 
         moveVelocity = 0f;
@@ -59,16 +83,48 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKey(KeyCode.A))
         {
-           // rb2d.velocity = new Vector2(-moveSpeed, rb2d.velocity.y);
+            // rb2d.velocity = new Vector2(-moveSpeed, rb2d.velocity.y);
             moveVelocity = -moveSpeed;
         }
 
         rb2d.velocity = new Vector2(moveVelocity, rb2d.velocity.y);
 
-        if(Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && shootDelayCounter <= 0)
         {
-            // fire
-            Instantiate(shot, firePoint.transform.position, firePoint.transform.rotation);
+            Fire();
+            shootDelayCounter = shootDelay;
+        }
+
+        shootDelayCounter -= Time.deltaTime;
+
+
+        // Attacking
+        if (Input.GetKeyDown(KeyCode.C) && attackTimer <= 0f)
+        {
+            Attack();
+        }
+        else
+        {
+            attackTimer -= Time.deltaTime;
+            attacking = false;
+        }
+
+        // knockback
+        if (knockBackTime <= 0)
+        {
+            rb2d.velocity = new Vector2(moveVelocity, rb2d.velocity.y);
+        }
+        else
+        {
+            if (knockFromRight)
+            {
+                rb2d.velocity = new Vector2(-knockBackForce, knockBackForce);
+            }
+            else
+            {
+                rb2d.velocity = new Vector2(knockBackForce, knockBackForce);
+            }
+            knockBackTime -= Time.deltaTime;
         }
 
         // Animation
@@ -83,10 +139,28 @@ public class PlayerController : MonoBehaviour
             transform.localScale = new Vector3(-1f, 1f, 1f);
         }
         anim.SetBool("Grounded", grounded);
+        anim.SetBool("Attacking", attacking);
     }
 
-    public void Jump()
+    private void Attack()
+    {
+        attacking = true;
+        attackTimer = attackDelay;
+    }
+
+    private void Jump()
     {
         rb2d.velocity = new Vector2(rb2d.velocity.x, jumpHeight);
+    }
+
+    private void Fire()
+    {
+        Instantiate(shot, firePoint.transform.position, firePoint.transform.rotation);
+    }
+
+    public void SetKnockBack(Vector3 t)
+    {
+        knockBackTime = knockbackLength;
+        knockFromRight = (t.x < transform.position.x);
     }
 }
