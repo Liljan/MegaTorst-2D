@@ -39,7 +39,6 @@ public class Projectile : MonoBehaviour
     {
         if (other.tag == "Enemy")
         {
-            Debug.Log("Jimmey!");
             other.GetComponent<EnemyHealthManager>().TakeDamage(damage);
         }
         Destroy(this.gameObject);

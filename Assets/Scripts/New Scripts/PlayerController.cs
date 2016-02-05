@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour
     public Transform firePoint;
     public GameObject shot;
     public float shootDelay = 2f;
-    private float shootDelayCounter = 0f;
+    private bool readyToShoot = true;
 
     // knockback
 
@@ -32,8 +32,7 @@ public class PlayerController : MonoBehaviour
 
     // melee attack
     private bool attacking = false;
-    public float attackDelay = 100f;
-    private float attackTimer = 0f;
+    private Melee meleeHandler;
 
     // sound effects
     private AudioSource audioSource;
@@ -46,6 +45,7 @@ public class PlayerController : MonoBehaviour
         rb2d = this.gameObject.GetComponent<Rigidbody2D>();
         anim = this.gameObject.GetComponent<Animator>();
         audioSource = this.gameObject.GetComponent<AudioSource>();
+        meleeHandler = GetComponentInChildren<Melee>();
     }
 
     void FixedUpdate()
@@ -61,7 +61,7 @@ public class PlayerController : MonoBehaviour
 
         // Check input
 
-        if ((Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.Space) ) && grounded)
+        if ((Input.GetKeyDown(KeyCode.W)) && grounded)
         {
             Jump();
             audioSource.PlayOneShot(SFX_JUMP);
@@ -89,24 +89,16 @@ public class PlayerController : MonoBehaviour
 
         rb2d.velocity = new Vector2(moveVelocity, rb2d.velocity.y);
 
-        if (Input.GetKeyDown(KeyCode.Space) && shootDelayCounter <= 0)
+        if (Input.GetKeyDown(KeyCode.Space) && readyToShoot)
         {
-            Fire();
-            shootDelayCounter = shootDelay;
+            Fire(shootDelay);
         }
-
-        shootDelayCounter -= Time.deltaTime;
-
 
         // Attacking
-        if (Input.GetKeyDown(KeyCode.C) && attackTimer <= 0f)
+
+        if (Input.GetKeyDown(KeyCode.C))
         {
-            Attack();
-        }
-        else
-        {
-            attackTimer -= Time.deltaTime;
-            attacking = false;
+            Attack(0.2f);
         }
 
         // knockback
@@ -142,20 +134,16 @@ public class PlayerController : MonoBehaviour
         anim.SetBool("Attacking", attacking);
     }
 
-    private void Attack()
-    {
-        attacking = true;
-        attackTimer = attackDelay;
-    }
-
-    private void Jump()
+    public void Jump()
     {
         rb2d.velocity = new Vector2(rb2d.velocity.x, jumpHeight);
     }
 
-    private void Fire()
+    private void Fire(float delay)
     {
         Instantiate(shot, firePoint.transform.position, firePoint.transform.rotation);
+        readyToShoot = false;
+        Invoke("ReadyToShoot", delay);
     }
 
     public void SetKnockBack(Vector3 t)
@@ -163,4 +151,20 @@ public class PlayerController : MonoBehaviour
         knockBackTime = knockbackLength;
         knockFromRight = (t.x < transform.position.x);
     }
+
+    public void Attack(float time)
+    {
+        attacking = true;
+        meleeHandler.SetAttacking(true);
+        Invoke("SetAttackingFalse", time);
+    }
+
+    // bad shiet
+    private void SetAttackingFalse()
+    {
+        attacking = false;
+        meleeHandler.SetAttacking(false);
+    }
+
+    private void ReadyToShoot(){ readyToShoot = true; }
 }
