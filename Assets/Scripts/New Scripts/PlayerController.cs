@@ -24,7 +24,6 @@ public class PlayerController : MonoBehaviour
     private bool readyToShoot = true;
 
     // knockback
-
     public float knockBackForce;
     public float knockbackLength;
     public float knockBackTime;
@@ -61,42 +60,31 @@ public class PlayerController : MonoBehaviour
 
         // Check input
 
-        if ((Input.GetKeyDown(KeyCode.W)) && grounded)
+        if (Input.GetButtonDown("Jump") && grounded)
         {
             Jump();
             audioSource.PlayOneShot(SFX_JUMP);
         }
-        else if (Input.GetKeyDown(KeyCode.W) && !doubleJumped && !grounded)
+        else if (Input.GetButtonDown("Jump") && !doubleJumped && !grounded)
         {
             Jump();
             doubleJumped = true;
             audioSource.PlayOneShot(SFX_DOUBLE_JUMP);
         }
 
-        moveVelocity = 0f;
-
-        if (Input.GetKey(KeyCode.D))
-        {
-            // rb2d.velocity = new Vector2(moveSpeed, rb2d.velocity.y);
-            moveVelocity = moveSpeed;
-        }
-
-        if (Input.GetKey(KeyCode.A))
-        {
-            // rb2d.velocity = new Vector2(-moveSpeed, rb2d.velocity.y);
-            moveVelocity = -moveSpeed;
-        }
+        // movement
+        moveVelocity = moveSpeed * Input.GetAxisRaw("Horizontal");
 
         rb2d.velocity = new Vector2(moveVelocity, rb2d.velocity.y);
 
-        if (Input.GetKeyDown(KeyCode.Space) && readyToShoot)
+        if (Input.GetButtonDown("Fire") && readyToShoot)
         {
             Fire(shootDelay);
         }
 
         // Attacking
 
-        if (Input.GetKeyDown(KeyCode.C))
+        if (Input.GetButtonDown("Melee"))
         {
             Attack(0.2f);
         }
