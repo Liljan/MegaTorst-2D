@@ -120,7 +120,6 @@ public class PlayerController : MonoBehaviour
         {
             rb2d.gravityScale = 0f;
             climbVelocity = climbSpeed * Input.GetAxisRaw("Vertical");
-            Debug.Log(climbVelocity.ToString());
             rb2d.velocity = new Vector2(rb2d.velocity.x, climbVelocity);
         }
         if(!onLadder)
@@ -173,6 +172,22 @@ public class PlayerController : MonoBehaviour
     {
         attacking = false;
         meleeHandler.SetAttacking(false);
+    }
+
+    public void OnCollisionEnter2D(Collision2D other)
+    {
+        if(other.transform.tag == "Moving Platform")
+        {
+            transform.parent = other.transform;
+        }
+    }
+
+    public void OnCollisionExit2D(Collision2D other)
+    {
+        if (other.transform.tag == "Moving Platform")
+        {
+            transform.parent = null;
+        }
     }
 
     private void ReadyToShoot() { readyToShoot = true; }
