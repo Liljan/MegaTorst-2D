@@ -13,7 +13,7 @@ public class LevelLoader : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if(Input.GetKeyDown(KeyCode.Space) && playerInZone)
+        if (Input.GetButtonDown("Jump") && playerInZone)
         {
             Application.LoadLevel(levelToLoad);
         }

@@ -26,6 +26,7 @@ public class Stomp : MonoBehaviour {
         {
             other.GetComponent<EnemyHealthManager>().TakeDamage(damage);
             player.Jump();
+            player.SetDoubleJumped(false);
             audioSource.PlayOneShot(audioSource.clip);
         }
     }

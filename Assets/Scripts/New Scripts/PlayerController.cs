@@ -154,5 +154,6 @@ public class PlayerController : MonoBehaviour
         meleeHandler.SetAttacking(false);
     }
 
-    private void ReadyToShoot(){ readyToShoot = true; }
+    private void ReadyToShoot() { readyToShoot = true; }
+    public void SetDoubleJumped(bool b) { doubleJumped = b; }
 }
