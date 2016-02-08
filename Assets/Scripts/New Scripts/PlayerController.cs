@@ -33,6 +33,12 @@ public class PlayerController : MonoBehaviour
     private bool attacking = false;
     private Melee meleeHandler;
 
+    // ladder
+    public bool onLadder = false;
+    public float climbSpeed;
+    private float climbVelocity;
+    private float gravityStore;
+
     // sound effects
     private AudioSource audioSource;
     public AudioClip SFX_JUMP;
@@ -45,6 +51,8 @@ public class PlayerController : MonoBehaviour
         anim = this.gameObject.GetComponent<Animator>();
         audioSource = this.gameObject.GetComponent<AudioSource>();
         meleeHandler = GetComponentInChildren<Melee>();
+
+        gravityStore = rb2d.gravityScale;
     }
 
     void FixedUpdate()
@@ -60,12 +68,12 @@ public class PlayerController : MonoBehaviour
 
         // Check input
 
-        if (Input.GetButtonDown("Jump") && grounded)
+        if (Input.GetButtonDown("Jump") && grounded && !onLadder)
         {
             Jump();
             audioSource.PlayOneShot(SFX_JUMP);
         }
-        else if (Input.GetButtonDown("Jump") && !doubleJumped && !grounded)
+        else if (Input.GetButtonDown("Jump") && !doubleJumped && !grounded && !onLadder)
         {
             Jump();
             doubleJumped = true;
@@ -107,6 +115,19 @@ public class PlayerController : MonoBehaviour
             knockBackTime -= Time.deltaTime;
         }
 
+        // Ladder climbing
+        if (onLadder)
+        {
+            rb2d.gravityScale = 0f;
+            climbVelocity = climbSpeed * Input.GetAxisRaw("Vertical");
+            Debug.Log(climbVelocity.ToString());
+            rb2d.velocity = new Vector2(rb2d.velocity.x, climbVelocity);
+        }
+        if(!onLadder)
+        {
+            rb2d.gravityScale = gravityStore;
+        }
+
         // Animation
         anim.SetFloat("Speed", Mathf.Abs(rb2d.velocity.x));
         if (rb2d.velocity.x > 0)
@@ -124,7 +145,7 @@ public class PlayerController : MonoBehaviour
 
     public void Jump()
     {
-        rb2d.velocity = new Vector2(rb2d.velocity.x, jumpHeight);
+            rb2d.velocity = new Vector2(rb2d.velocity.x, jumpHeight);
     }
 
     private void Fire(float delay)
@@ -156,4 +177,5 @@ public class PlayerController : MonoBehaviour
 
     private void ReadyToShoot() { readyToShoot = true; }
     public void SetDoubleJumped(bool b) { doubleJumped = b; }
+    public void SetOnLadder(bool b) { onLadder = b; }
 }
