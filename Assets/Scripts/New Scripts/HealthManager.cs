@@ -26,12 +26,21 @@ public class HealthManager : MonoBehaviour {
         {
             lm.RespawnPlayer();
         }
-            
 
         text.text = playerHealth.ToString();
 	}
 
-    public static void RemoveHealth(int damage) { playerHealth -= damage; }
-    public static void GiveHealth(int health) { playerHealth += health; }
-    public void SetFullHealth() { playerHealth = maxPlayerHealth; }
+    public static void RemoveHealth(int damage) {
+        playerHealth -= damage;
+        FindObjectOfType<PlayerLifeBar>().RemoveHealth();
+
+    }
+    public static void GiveHealth(int health) {
+        playerHealth += health;
+        FindObjectOfType<PlayerLifeBar>().AddHealth();
+    }
+    public void SetFullHealth() {
+        playerHealth = maxPlayerHealth;
+        FindObjectOfType<PlayerLifeBar>().SetFullHealth();
+    }
 }
